@@ -1,0 +1,75 @@
+﻿@model AddressBook.User
+
+@{
+    ViewBag.Title = "EditUsers";
+}
+
+<h2>EditUsers</h2>
+
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    @Html.AntiForgeryToken()  //we need this to prevent CSRF Attack
+foreach (var item in ViewBag.userdetails)  
+{                 
+<div class="container">
+    <div class="row">
+       
+            <div class="col-lg-6">
+                <div class="well well-sm"><strong><span class="glyphicon glyphicon-asterisk"></span>Required Field</strong></div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.FirstName)
+                    <div class="input-group">
+                         @Html.TextBoxFor(model => model.FirstName, new{@class="form-control",@Value=item.FirstName})
+                         @Html.ValidationMessageFor(model => model.FirstName)
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.LastName)
+                    <div class="input-group">
+                         @Html.TextBoxFor(model => model.LastName, new{@class="form-control",@Value=item.LastName})
+                         @Html.ValidationMessageFor(model => model.LastName)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Email)
+                    <div class="input-group">
+                        @Html.TextBoxFor(model => model.Email, new { type = "email", @class = "form-control", @Value = item.Email })
+                        @Html.ValidationMessageFor(model => model.Email)
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                     @Html.Label("Password")
+                    <div class="input-group">
+                        @Html.TextBoxFor(model => model.PasswordHashed, new{type="password", @class="form-control",@Value=item.PasswordHashed})
+                        @Html.ValidationMessageFor(model => model.PasswordHashed)
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                     @Html.Label("Confirm Password")
+                    <div class="input-group">
+                        @Html.TextBoxFor(model => model.PasswordHashed, new { type = "password", @class = "form-control", @Value = item.PasswordHashed })
+                        @Html.ValidationMessageFor(model => model.PasswordHashed)
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                     @Html.Label("Is Admin?")
+                    <div class="input-group">
+                       @Html.EditorFor(model => model.IsAdmin, new { @class = "form-control", @Value = item.IsAdmin })
+                    </div>
+                </div>
+                <input type="submit" name="Done" id="submit" value="EditUsers" class="btn btn-info pull-right">
+            </div>
+       
+    </div>
+</div>
+}
+}

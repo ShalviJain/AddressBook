@@ -1,0 +1,63 @@
+﻿@model AddressBook.User
+@{
+    ViewBag.Title = "Login";
+}
+
+@section header{
+     <link href="~/Content/navbar.css" rel="stylesheet"/> 
+}
+
+@Scripts.Render("~/bundles/jquery")
+ 
+<div class="container form-container">
+<div class="form-horizontal">
+    <div>
+        <b>
+    <h2 style="text-align:center; padding-bottom:10px; color:white">IDC Address Book</h2>
+            </b>
+    </div>
+@using (Html.BeginForm("Login", "Account", FormMethod.Post))
+{
+    //this  is for create form tag
+    @Html.AntiForgeryToken()          // this is to prevent CSRF attack
+    @Html.ValidationSummary(true)
+    if (@ViewBag.Message != null)
+    {
+    <div style="border: 1px solid red">
+        @ViewBag.Message
+    </div>
+    }
+
+        <div class="form-group">  
+            <div class="col-md-12">  
+                @Html.TextBoxFor(model => model.Email, new{@class="form-control",placeholder="Enter Email"})
+                 @Html.ValidationMessageFor(model => model.Email)
+                 </div>  
+           
+        </div>  
+        <div class="form-group">  
+            <div class="col-md-12">  
+                @Html.TextBoxFor(model => model.PasswordHashed, new{type="password", @class="form-control",placeholder="Enter password"})
+                 @Html.ValidationMessageFor(model => model.PasswordHashed)
+                 @Html.ValidationMessage("Error")
+                    </div>  
+            
+        </div>  
+        <div class="form-group">  
+            <div class="col-md-6"> <a style="color:white" class="btn btn-link btn-block" href="@Url.Action("ForgotPassword", "Account")">Forgot your password?</a> </div>  
+            <div class="col-md-6">  
+                <input type="submit" class="btn btn-info btn-block" value="Login"/>
+            </div>  
+        </div> 
+
+
+}
+    </div>
+    </div>
+
+<script>
+    $(document).ready(function () {
+        $("body").css("background", "url('http://i.imgur.com/GHr12sH.jpg')");
+    })
+    
+</script>

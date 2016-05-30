@@ -1,0 +1,97 @@
+﻿@model AddressBook.User
+
+@{
+    ViewBag.Title = "AddNewUsers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+  @section header{
+                  @Html.Partial("_SecuredHeaderPartial") <!-- the header we removed earlier-->
+   }
+<h2>AddNewUsers</h2>
+
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    @Html.AntiForgeryToken()  //we need this to prevent CSRF Attack
+                                   
+<div class="container">
+    <div class="row">
+       
+            <div class="col-lg-6">
+                <div class="well well-sm"><strong><span class="glyphicon glyphicon-asterisk"></span>Required Field</strong></div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.FirstName)
+                    <div class="input-group">
+                         @Html.TextBoxFor(model => model.FirstName, new{@class="form-control",placeholder="Enter First Name"})
+                         @Html.ValidationMessageFor(model => model.FirstName)
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.LastName)
+                    <div class="input-group">
+                         @Html.TextBoxFor(model => model.LastName, new{@class="form-control",placeholder="Enter Last Name"})
+                         @Html.ValidationMessageFor(model => model.LastName)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Email)
+                    <div class="input-group">
+                        @Html.TextBoxFor(model => model.Email, new{type="email", @class="form-control",placeholder="Enter Email"})
+                        @Html.ValidationMessageFor(model => model.Email)
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                     @Html.Label("Password")
+                    <div class="input-group">
+                        @Html.TextBoxFor(model => model.PasswordHashed, new{type="password", @class="form-control",placeholder="Enter Password", id="Password"})
+                        @Html.ValidationMessageFor(model => model.PasswordHashed)
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                     @Html.Label("Confirm Password")
+                    <div class="input-group">
+                        @Html.TextBoxFor(model => model.PasswordHashed, new{type="password", @class="form-control",placeholder="Confirm Password", id="Confirm_Password"})
+                        @Html.ValidationMessageFor(model => model.PasswordHashed)
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                     @Html.Label("Is Admin?")
+                    <div class="input-group">
+                       @Html.EditorFor(model => model.IsAdmin)
+                    </div>
+                </div>
+                <input type="submit" name="submit" id="submit" value="Submit" class="btn btn-info pull-right">
+            </div>
+       
+    </div>
+</div>
+}
+<script>
+    $(document).ready(function () {
+        var Password = $('#Password').text();
+        var Confirm_Password = $('#Confirm_Password').text();
+
+        function validatePassword() {
+            if (Password != Confirm_Password){
+                Confirm_Password.setCustomValidity("Passwords Don't Match");
+            } else {
+                Confirm_Password.setCustomValidity('');
+            }
+        }
+    })
+
+</script>
+
+
+
+

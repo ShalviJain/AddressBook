@@ -1,0 +1,40 @@
+﻿@Scripts.Render("~/bundles/jquery")
+      <!-- Static navbar -->
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+              @*<img  src="@Url.Content("~/Content/image/AddressBookLogo.png")"/>*@
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="@Url.Action("Index",null, new{ area = string.Empty, controller = "Home" }, Request.Url.Scheme)"><i class="fa fa-home icon-margin">Home</i></a></li>
+              <li><a href="@Url.Action("AddressBook",null, new{ area = string.Empty, controller = "Home" }, Request.Url.Scheme)"><i class="fa fa-book icon-margin">Address Book</i></a></li>
+    </ul>
+              
+            <ul class="nav navbar-nav navbar-right">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user icon-margin"></i><span class="caret"></span>@HttpContext.Current.Session["LogedUserFirstName"].ToString()</a>
+                <ul class="dropdown-menu">
+                  <li><a href="@Url.Action("GetSessionId",null, new{ area = string.Empty, controller = "Home" }, Request.Url.Scheme)"><i class="fa fa-user icon-margin">My Profile</i></a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="@Url.Action("LogOff",null, new{ area = string.Empty, controller = "Account" }, Request.Url.Scheme)"><i class="fa fa-sign-out icon-margin">Sign Out</i></a></li>
+                </ul>
+              </li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
+
+<script>
+    $(document).ready(function () {
+        $('#navbar').find('ul:first-child').append('<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-users icon-margin">Manage Users</i><span class="caret"></span></a> <ul class="dropdown-menu"> <li><a href="@Url.Action("ViewUsers",null, new{ area = string.Empty, controller = "ManageUsers" }, Request.Url.Scheme)"><i class="fa fa-eye icon-margin">View Users</i></a></li> <li role="separator" class="divider"></li> <li><a href="@Url.Action("AddNewUsers",null, new{ area = string.Empty, controller = "ManageUsers" }, Request.Url.Scheme)"><i class="fa fa-plus icon-margin">Add New Users</i></a></li> </ul> </li>');
+        //$('#navbar').find('ul:first-child').append('<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manage Users<span class="caret"></span></a><ul class="dropdown-menu">  <li><a href="@Url.Action("ViewUsers",null, new{ area = string.Empty, controller = "ManageUsers" }, Request.Url.Scheme)">View Users</a></li>  <li role="separator" class="divider"></li>  <li><a href="@Url.Action("AddNewUsers",null, new{ area = string.Empty, controller = "ManageUsers" }, Request.Url.Scheme)">Add New Users</a></li></ul>')
+    })
+</script>
+

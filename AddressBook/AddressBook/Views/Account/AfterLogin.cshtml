@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "AfterLogin";
+}
+
+
+<h5>@Session["LogedUserFirstName"].ToString(), you are successfuly Logged in</h5>
+
+@if (@Session["IsAdmin"].ToString() == "True")
+  { 
+      
+           @section header{
+                              @Html.Partial("_SecuredHeaderPartial") <!-- the header we removed earlier-->
+                          }
+ 
+  }
+else
+{
+@section header{
+    @Html.Partial("_SecuredHeaderPartial") <!-- the header we removed earlier-->
+}
+}

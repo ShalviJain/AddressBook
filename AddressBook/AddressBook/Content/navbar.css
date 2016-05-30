@@ -1,0 +1,75 @@
+body {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.navbar {
+    margin-bottom: 20px;
+}
+
+.icon-margin {
+    
+}
+    .icon-margin::before {
+        padding : 4px;
+    }
+
+.form-horizontal {
+    width: 500px;
+    height:400px;
+    margin-left: 300px;
+    margin-top : 100px;
+}
+
+.field-validation-error{ color: red; font-weight: bold; }
+
+/*.form-container {
+    background: url(http://i.imgur.com/GHr12sH.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}*/
+
+.viewOwners {
+    width: 1000px;
+}
+
+    .viewOwners ul {
+        margin: 0;
+        pading: 0;
+    }
+
+        .viewOwners ul li {
+            text-align:center;
+        }
+
+#sortable_list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    /*font: 1px Arial, Helvatica, Geneva, sans-serif;*/
+}
+
+    #sortable_list li.header div {
+        background-color: #ccc;
+        font-weight: bold;
+        cursor: default;
+    }
+    #sortable_list li div {
+        height:30px;
+    }
+    #sortable_list li:nth-child(2n+1) {
+        background-color: #ccc;
+    }
+    #sortable_list li:nth-child(2n) {
+        background-color: #bbb;
+    }
+    #sortable_list li div.listitem_head {
+        width: 198px;
+        display: block;
+        float: left;
+        word-wrap:break-word;
+        border-right: 1px solid #ccc;
+        padding: 3px 5px;
+    }

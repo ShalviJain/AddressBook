@@ -1,0 +1,120 @@
+﻿@model AddressBook.Contact
+@{
+    ViewBag.Title = "DeleteContact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section header{
+                  @Html.Partial("_SecuredHeaderPartial") <!-- the header we removed earlier-->
+               }
+<h2>Are you sure you want to delete this record?</h2>
+
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    @Html.AntiForgeryToken()  //we need this to prevent CSRF Attack
+foreach (var item in ViewBag.userdetails)  
+{
+
+<div class="container">
+    <div class="row">
+       
+            <div class="col-lg-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.FirstName)
+                    <div class="input-group">
+                        <div class="form-control">@item.FirstName.ToString()</div>
+                         @Html.ValidationMessageFor(model => model.FirstName)
+                        <span class="input-group-addon"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.LastName)
+                    <div class="input-group">
+                        @if(item.LastName != null)
+                        {
+                            <div class="form-control">@item.LastName.ToString()</div>
+                             
+                        } 
+                        else {
+                            @Html.LabelFor(model => model.LastName, new{@class="form-control"})
+                        }
+                        @Html.ValidationMessageFor(model => model.LastName)
+                        <span class="input-group-addon"></span>
+                        
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PhoneNumber)
+                    <div class="input-group">
+                        
+                            <div class="form-control">@item.PhoneNumber.ToString()</div>
+                             @Html.ValidationMessageFor(model => model.PhoneNumber)
+                            <span class="input-group-addon"></span>
+                        
+                    </div>
+                </div>
+
+                <div class="form-group">
+                     @Html.Label("Street Name")
+                    <div class="input-group">
+                            <div class="form-control">@item.StreetName.ToString()</div>
+                             @Html.ValidationMessageFor(model => model.StreetName)
+                            <span class="input-group-addon"></span>
+                        
+                    </div>
+                </div>
+
+                <div class="form-group">
+                     @Html.Label("City")
+                    <div class="input-group">
+                        <div class="form-control">@item.City.ToString()</div>
+                        @Html.ValidationMessageFor(model => model.City)
+                        <span class="input-group-addon"></span>
+                        
+                    </div>
+                </div>
+
+                <div class="form-group">
+                     @Html.Label("Province")
+                    <div class="input-group">
+                        <div class="form-control">@item.Province.ToString()</div>
+                        @Html.ValidationMessageFor(model => model.Province)
+                        <span class="input-group-addon"></span>
+                    </div>
+                </div>
+
+                
+                <div class="form-group">
+                     @Html.Label("Postal Code")
+                    <div class="input-group">
+                        <div class="form-control">@item.PostalCode.ToString()</div>
+                        @Html.ValidationMessageFor(model => model.PostalCode)
+                        <span class="input-group-addon"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                     @Html.Label("Country")
+                    <div class="input-group">
+                        <div class="form-control">@item.Country.ToString()</div>
+                        @Html.ValidationMessageFor(model => model.Country)
+                        <span class="input-group-addon"></span>
+                    </div>
+                </div>
+                
+                <input type="submit" name="delete" id="delete" value="Delete" class="btn btn-danger btn-lg btn-block">
+            </div>
+       
+    </div>
+</div>
+}
+}
+
+
+
+
+
+
+

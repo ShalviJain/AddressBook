@@ -1,0 +1,51 @@
+﻿@model AddressBook.Models.UserValidation
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml"; 
+}
+
+@section header{
+    @Html.Partial("_SecuredHeaderPartial") <!-- the header we removed earlier-->
+}
+
+@foreach (var item in ViewBag.userdetails)  
+{
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-9">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-12 lead">User profile<hr></div>
+          </div>
+          <div class="row">
+			<div class="col-md-4 text-center">
+              <img class="img-circle avatar avatar-original" style="-webkit-user-select:none; 
+              display:block; margin:auto;" src="http://icons.iconarchive.com/icons/hopstarter/sleek-xp-basic/256/Administrator-icon.png">
+            </div>
+           <div class="col-md-8">
+              <div class="row">
+                <div class="col-md-12">
+                  <h1 class="only-bottom-margin">@item.FirstName</h1>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <span class="text-muted">Email:</span><span> @item.Email</span> <br>
+                  <span class="text-muted">Password:</span><input type="password" value="@item.PasswordHashed" readonly style="border:hidden"/><br>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <hr><a class="btn btn-default pull-right" href="@Url.Action("EditMyProfile", "Home",new{id = @item.Id })"><i class="glyphicon glyphicon-pencil"></i> Edit</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+}

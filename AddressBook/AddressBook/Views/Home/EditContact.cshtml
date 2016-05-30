@@ -1,0 +1,115 @@
+﻿@model AddressBook.Contact
+@{
+    ViewBag.Title = "EditContact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section header{
+                  @Html.Partial("_SecuredHeaderPartial") <!-- the header we removed earlier-->
+               }
+<h2>Edit Contact</h2>
+
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    @Html.AntiForgeryToken()  //we need this to prevent CSRF Attack
+foreach (var item in ViewBag.userdetails)  
+{
+
+<div class="container">
+    <div class="row">
+       
+            <div class="col-lg-6">
+                <div class="well well-sm"><strong><span class="glyphicon glyphicon-asterisk"></span>Required Field</strong></div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.FirstName)
+                    <div class="input-group">
+                         @Html.TextBoxFor(model => model.FirstName, new{@class="form-control",@Value = item.FirstName.ToString()})
+                         @Html.ValidationMessageFor(model => model.FirstName)
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.LastName)
+                    <div class="input-group">
+                        @if(item.LastName != null)
+                        {
+                         @Html.TextBoxFor(model => model.LastName, new{@class="form-control",@Value = item.LastName.ToString()})
+                         @Html.ValidationMessageFor(model => model.LastName)
+                        } 
+                        else {
+                            @Html.TextBoxFor(model => model.LastName, new{@class="form-control",placeholder="Enter Last Name"})
+                        }
+                        
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PhoneNumber)
+                    <div class="input-group">
+                        @Html.TextBoxFor(model => model.PhoneNumber, new{ @class="form-control",@Value = item.PhoneNumber.ToString()})
+                        @Html.ValidationMessageFor(model => model.PhoneNumber)
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                     @Html.Label("Street Name")
+                    <div class="input-group">
+                        @Html.TextBoxFor(model => model.StreetName, new{@class="form-control",@Value = item.StreetName.ToString()})
+                        @Html.ValidationMessageFor(model => model.StreetName)
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                     @Html.Label("City")
+                    <div class="input-group">
+                        @Html.TextBoxFor(model => model.City, new{ @class="form-control",@Value = item.City.ToString()})
+                        @Html.ValidationMessageFor(model => model.City)
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                     @Html.Label("Province")
+                    <div class="input-group">
+                        @Html.TextBoxFor(model => model.Province, new{ @class="form-control",@Value = item.Province.ToString()})
+                        @Html.ValidationMessageFor(model => model.Province)
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                    </div>
+                </div>
+
+                
+                <div class="form-group">
+                     @Html.Label("Postal Code")
+                    <div class="input-group">
+                        @Html.TextBoxFor(model => model.PostalCode, new{ @class="form-control",@Value = item.PostalCode.ToString()})
+                        @Html.ValidationMessageFor(model => model.PostalCode)
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                     @Html.Label("Country")
+                    <div class="input-group">
+                        @Html.TextBoxFor(model => model.Country, new{ @class="form-control",@Value = item.Country.ToString()})
+                        @Html.ValidationMessageFor(model => model.Country)
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                    </div>
+                </div>
+                
+                <input type="submit" name="edit" id="edit" value="Done" class="btn btn-primary btn-lg btn-block">
+            </div>
+       
+    </div>
+</div>
+}
+}
+
+
+
+
+
+
+

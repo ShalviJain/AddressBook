@@ -1,0 +1,126 @@
+﻿@model AddressBook.Models.ContactValidation
+
+@{
+    ViewBag.Title = "AddressBook";
+}
+
+@section header{
+    @Html.Partial("_SecuredHeaderPartial") <!-- _Layout header-->
+}
+<h2>AddressBook</h2>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <script src="~/Scripts/jquery-1.12.4.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.8.20.min.js"></script>
+<!-- Custom styles for this template -->
+    <link href="~/Content/TableScroll.css" rel="stylesheet">
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+    <div id="wrapper">
+        <div id="first" style="position:relative">
+@*            <section style="height:100%; overflow-y:auto">*@
+            <div style="background-color:azure">
+                <p style="text-align:center">All Contacts</p>
+                <a style="position: absolute; top: 0px; right: 0px;" class="btn " id="iconadd">
+                    <i class="fa fa-plus"></i>
+                </a>
+
+            </div>
+                
+                <ul class="list-group" id="contacts" style="height:100%; overflow-y:auto">
+                      @foreach (var item in ViewBag.Data)
+                      {
+                          <li class="list-group-item"> @item.FirstName @item.LastName </li>
+                      }
+                 </ul>
+@*            </section>*@
+                 
+            </div>
+                
+        <div id="second" style="height:100%">
+            <div id="newcontact"></div>
+            <div id="info" style="height: 100%; position: relative;">
+            <ul class="list-group">
+                <li class="list-group-item" id="detailfName">
+                    @*<img />*@
+                </li>
+                <li class="list-group-item"  id="detailPhone"></li>
+            </ul>
+            <div style="">
+                <button id="btndel"  class="btn btn-danger"style="position: absolute; right: 0px; bottom: 0px;"><a href="@Url.Action("DeleteContact",null, new{ area = string.Empty, controller = "Home" }, Request.Url.Scheme)"></a>Delete</button>
+                <button id="btnedit"  class="btn btn-primary" style="position: absolute; left: 0px; bottom: 0px;"><a href="@Url.Action("EditContact",null, new{ area = string.Empty, controller = "Home" }, Request.Url.Scheme)"></a>Edit</button>
+            </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+    <script>
+        $(document).ready(function () {
+
+            $('#iconadd').click(function () {
+                $('#contacts li.active').removeClass('active');
+                $('#newcontact').show();
+                $('#info').hide();
+                $.ajax({
+                    type: 'GET', url: '@Url.Action("AddContacts",null, new{ area = string.Empty, controller = "Home" }, Request.Url.Scheme)',
+                    data: undefined,
+                    success: function (data) {
+                        html = data.replace(/^[\S\s]*<Section[^>]*?>/i, "").replace(/<\/Section[\S\s]*$/i, "");
+                        $('#newcontact').html(html);
+                    }
+                });
+                return false;
+                
+
+            });
+
+            var selecteditem = undefined;
+            var item = JSON.parse('@Html.Raw(Json.Encode(ViewBag.Data))');
+            $('#contacts li').first().addClass("active");
+            $("#detailfName").html($('#contacts li').first().text());
+            $("#detailPhone").html(item[0].PhoneNumber);
+            $("#btnedit").on('click', function () {
+                if (selecteditem != undefined) {
+                    url = "/Home/EditContact/" + selecteditem.Id;
+                    window.location.href = url;
+                }
+            });
+            $("#btndel").on('click', function () {
+                if (selecteditem != undefined) {
+                    url = "/Home/DeleteContact/" + selecteditem.Id;
+                    window.location.href = url;
+                }
+            });
+            $('#contacts').on('click', 'li', function () {
+                $('#newcontact').hide();
+                $('#info').show();
+                if ($(this).hasClass('active')) {
+                    $(this).removeClass('active');
+                }
+                else {
+                    $('#contacts li.active').removeClass('active');
+                    $(this).addClass('active');
+                    var $tr = $(this).closest('li');
+                    var myRow = $tr.index();
+                    selecteditem = item[myRow]
+                    $("#detailfName").html($(this).text());
+                    $("#detailPhone").html(item[myRow].PhoneNumber);
+                }
+            });
+        });
+</script>
+</body>
+    </html>
+
+

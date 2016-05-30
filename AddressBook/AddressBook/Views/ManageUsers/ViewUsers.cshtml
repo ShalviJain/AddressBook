@@ -1,0 +1,61 @@
+﻿@model AddressBook.User
+
+@{
+    ViewBag.Title = "ViewUsers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+ @section header{
+                  @Html.Partial("_SecuredHeaderPartial") <!-- the header we removed earlier-->
+   }
+<h1>All Users</h1>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    @Html.AntiForgeryToken()  //we need this to prevent CSRF Attack
+
+<div class="container">
+  
+           
+                @foreach (var item in ViewBag.users)  
+               { 
+                    <div class="col-lg-6">
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="form-control" style="width:70%">@item.FirstName.ToString()</div>
+                             @Html.ValidationMessageFor(model => model.FirstName)
+                            <button id="btndel"  class="btn btn-danger"style=""><a href="@Url.Action("DeleteUser",null, new{ area = string.Empty, controller = "ManageUsers" }, Request.Url.Scheme)"></a>Delete</button>
+                            <button id="btnedit"  class="btn btn-primary" style="position: absolute; right: 0px; bottom: 0px;"><a href="@Url.Action("EditUsers",null, new{ area = string.Empty, controller = "ManageUsers" }, Request.Url.Scheme)"></a>Edit</button>
+                            <span class="input-group-addon"></span>
+                        </div>
+                    </div>
+                        </div>
+                }
+                    
+ </div>
+}
+ <script>
+     $(document).ready(function () {
+         var selecteditem = undefined;
+         var item = JSON.parse('@Html.Raw(Json.Encode(ViewBag.Data))');
+         $("#btnedit").on('click', function () {
+             if (selecteditem != undefined) {
+                 url = "/ManagedUsers/EditUser/" + selecteditem.Id;
+                 window.location.href = url;
+             }
+         });
+         $("#btndel").on('click', function () {
+             if (selecteditem != undefined) {
+                 url = "/ManagedUsers/DeleteUser/" + selecteditem.Id;
+                 window.location.href = url;
+             }
+         });
+         selecteditem = item[myRow]
+     });
+</script>
+
+
+
+
+

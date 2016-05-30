@@ -1,0 +1,96 @@
+﻿@model AddressBook.Contact
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section header{
+<style>
+a.closeX {
+    position: absolute;
+    right: 0px; top: 0px; width:20px;
+    background-color: #FFF; color: black;
+    margin-top:-15px; margin-right:-15px; border-radius: 20px;
+    padding-left: 3px; padding-top: 1px;
+    cursor:pointer; z-index: -1;
+    font-size:16px; font-weight:bold;
+}
+</style>
+    }
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    @Html.AntiForgeryToken()  //we need this to prevent CSRF Attack
+                                   
+          
+         <div class="form-group">
+              
+@*                <div id="content">
+                    <a class="closeX" id="closeX" onclick='$("#content").hide();'>X</a>
+                </div>*@
+             @Html.LabelFor(model => model.FirstName, new {@class="control-label"})
+             <div class="">
+                 @Html.TextBoxFor(model => model.FirstName, new{@class="form-control",placeholder="Enter First Name"})
+                 @Html.ValidationMessageFor(model => model.FirstName)
+             </div>
+         </div>                          
+
+        <div class="form-group">
+             @Html.LabelFor(model => model.LastName, new {@class="control-label"})
+             <div class="">
+                 @Html.TextBoxFor(model => model.LastName, new{@class="form-control",placeholder="Enter Last Name"})
+                 @Html.ValidationMessageFor(model => model.LastName)
+             </div>
+         </div> 
+        
+        <div class="form-group">
+             @Html.LabelFor(model => model.PhoneNumber, new {@class="control-label"})
+             <div class="">
+                 @Html.TextBoxFor(model => model.PhoneNumber, new{@class="form-control",placeholder="Enter Phone Number"})
+                 @Html.ValidationMessageFor(model => model.PhoneNumber)
+             </div>
+         </div>
+        
+         <div class="form-group">
+             @Html.LabelFor(model => model.StreetName, new {@class="control-label"})
+             <div class="">
+                 @Html.TextBoxFor(model => model.StreetName, new{@class="form-control",placeholder="Enter Street Name"})
+                 @Html.ValidationMessageFor(model => model.StreetName)
+             </div>
+         </div>
+
+        <div class="form-group">
+             @Html.LabelFor(model => model.City, new {@class="control-label"})
+             <div class="">
+                 @Html.TextBoxFor(model => model.City, new{@class="form-control",placeholder="Enter City"})
+                 @Html.ValidationMessageFor(model => model.City)
+             </div>
+         </div>
+        
+        <div class="form-group">
+             @Html.LabelFor(model => model.Province, new {@class="control-label"})
+             <div class="">
+                 @Html.TextBoxFor(model => model.Province, new{@class="form-control",placeholder="Enter Province"})
+                 @Html.ValidationMessageFor(model => model.Province)
+             </div>
+         </div>
+    
+         <div class="form-group">
+             @Html.LabelFor(model => model.PostalCode, new {@class="control-label"})
+             <div class="">
+                 @Html.TextBoxFor(model => model.PostalCode, new{@class="form-control",placeholder="Enter Postal Code"})
+                 @Html.ValidationMessageFor(model => model.PostalCode)
+             </div>
+         </div> 
+         <div class="form-group">
+             @Html.LabelFor(model => model.Country, new {@class="control-label"})
+             <div class="">
+                 @Html.TextBoxFor(model => model.Country, new{@class="form-control",placeholder="Enter Country"})
+                 @Html.ValidationMessageFor(model => model.Country)
+             </div>
+         </div>
+
+        <div class="form-group">
+            <input class="btn btn-primary btn-lg btn-block" type="submit" value="Done" class="btn btn-primary" />
+        </div>  
+}
